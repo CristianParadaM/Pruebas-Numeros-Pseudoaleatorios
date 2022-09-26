@@ -32,12 +32,12 @@ public class Prueba_Varianza extends Prueba_Numero_Pseudoaleatorio{
 	}
 
 	public double getLi() {
-		return getChiCuadrado025()/(12*(list.size()-1));
+		return truncarNumber(getChiCuadrado025()/(12*(list.size()-1)));
 	}
 
 	@Override
 	public double getLs() {
-		return getChiCuadrado0975()/(12*(list.size()-1));
+		return truncarNumber(getChiCuadrado0975()/(12*(list.size()-1)));
 	}
 	
 }
