@@ -55,6 +55,23 @@ public class PruebaKS extends Prueba_Numero_Pseudoaleatorio {
 		});
 		return getMax(dife);
 	}
+	
+	public ArrayList<Object[]> getTable() {
+		ArrayList<Object[]> table = new ArrayList<Object[]>();
+		LinkedHashMap<String, Integer> frecuencies = calculateFrequencies();
+		count = 0;
+		frecuencies.forEach((k, v) -> {
+			String[] intervals = k.split("-");
+			int frec_a = count == 1 ? v : v + (int) table.get(count - 2)[4];
+			double frec_esp_a = count == 1 ? list.size() / NUMBER_OF_INTERVALS
+					: (list.size() / NUMBER_OF_INTERVALS) + (double) table.get(count - 2)[6];
+			Object[] aux = new Object[] { count++, Double.parseDouble(intervals[0]), Double.parseDouble(intervals[1]),
+					v, frec_a, frec_a / list.size(), frec_esp_a, frec_esp_a / list.size(),
+					(frec_a / list.size()) - (frec_esp_a / list.size()) };
+			table.add(aux);
+		});
+		return table;
+	}
 
 	private double getMax(ArrayList<Double> list) {
 		double max = list.get(0);
