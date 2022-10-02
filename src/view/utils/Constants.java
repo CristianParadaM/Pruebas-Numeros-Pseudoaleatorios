@@ -23,8 +23,8 @@ public class Constants {
 	public static final String ERROR = "Error";
 
 	// FONT
-	public static final String FONT_APP = "Calibri (Cuerpo)";
-	public static final int FONT_SIZE_APP_BUTTONS = 20 * JFrameMain.WIDTH_FRAME / 1920;
+	public static final String FONT_APP = "Cambria Math";
+	public static final int FONT_SIZE_APP_BUTTONS = 27 * JFrameMain.WIDTH_FRAME / 1920;
 	public static final int FONT_SIZE_APP_TITLES = 45 * JFrameMain.WIDTH_FRAME / 1920;
 	public static final int FONT_SIZE_APP_LABELS = 34 * JFrameMain.WIDTH_FRAME / 1920;
 	public static final int FONT_SIZE_APP_PLACEHOLDER = 25 * JFrameMain.WIDTH_FRAME / 1920;

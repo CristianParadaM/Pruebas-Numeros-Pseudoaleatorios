@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -9,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,11 +46,17 @@ public class JPanelMain extends JPanel {
 	private JButton jButtonP4;
 	private JButton jButtonP5;
 
-	private JPanel jPanelContent1;
-	private JPanel jPanelContent2;
-	private JPanel jPanelContent3;
-	private JPanel jPanelContent4;
-	private JPanel jPanelContent5;
+	private JPanelTest jPanelContent1;
+	private JPanelTest jPanelContent2;
+	private JPanelTest jPanelContent3;
+	private JPanelTest jPanelContent4;
+	private JPanelTest jPanelContent5;
+
+	private JButton JButtonTest1;
+	private JButton JButtonTest2;
+	private JButton JButtonTest3;
+	private JButton JButtonTest4;
+	private JButton JButtonTest5;
 
 	private JLabel jLabelResult;
 	private JLabel jLabelImage;
@@ -75,11 +83,22 @@ public class JPanelMain extends JPanel {
 		this.jButtonP4 = new JButton("Prueba de Chi2");
 		this.jButtonP5 = new JButton("Prueba de Poker");
 
-		this.jPanelContent1 = new JPanel();
-		this.jPanelContent2 = new JPanel();
-		this.jPanelContent3 = new JPanel();
-		this.jPanelContent4 = new JPanel();
-		this.jPanelContent5 = new JPanel();
+		this.jPanelContent1 = new JPanelTest();
+		this.jPanelContent2 = new JPanelTest();
+		this.jPanelContent3 = new JPanelTest();
+		this.jPanelContent4 = new JPanelTest();
+		this.jPanelContent5 = new JPanelTest();
+
+		this.JButtonTest1 = new JButton(new ImageIcon(
+				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+		this.JButtonTest2 = new JButton(new ImageIcon(
+				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+		this.JButtonTest3 = new JButton(new ImageIcon(
+				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+		this.JButtonTest4 = new JButton(new ImageIcon(
+				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+		this.JButtonTest5 = new JButton(new ImageIcon(
+				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
 
 		this.activeButtons = new ArrayList<Object[]>();
 		this.activePanels = new ArrayList<Object[]>();
@@ -116,36 +135,46 @@ public class JPanelMain extends JPanel {
 		configureLabel(jLabelHelp, Constants.FONT_SIZE_APP_PLACEHOLDER, Font.PLAIN, Color.WHITE);
 		configureLabel(jLabelResult, Constants.FONT_SIZE_APP_LABELS, Font.BOLD, Color.WHITE);
 		configureButtons(jButtonLoadFile, Constants.COLOR_BACKGROUND_GRADIENT_TWO, Constants.FONT_SIZE_APP_BUTTONS,
-				JFrameMain.getInstance(), Constants.COMMAND_LOAD_FILE);
+				JFrameMain.getInstance(), Constants.COMMAND_LOAD_FILE, null);
 		configureButtons(jButtonStart, Constants.COLOR_BUTTONS_METHODS, Constants.FONT_SIZE_APP_BUTTONS,
-				Controller.getInstance(), Constants.COMMAND_START);
+				Controller.getInstance(), Constants.COMMAND_START, null);
 
 		this.jLabelTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
 		this.jLabelPath.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
 		this.jLabelResult.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
 
 		configureButtons(jButtonP1, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST1);
+				JFrameMain.getInstance(), Constants.COMMAND_TEST1, JButtonTest1);
 		configureButtons(jButtonP2, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST2);
+				JFrameMain.getInstance(), Constants.COMMAND_TEST2, JButtonTest2);
 		configureButtons(jButtonP3, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST3);
+				JFrameMain.getInstance(), Constants.COMMAND_TEST3, JButtonTest3);
 		configureButtons(jButtonP4, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST4);
+				JFrameMain.getInstance(), Constants.COMMAND_TEST4, JButtonTest4);
 		configureButtons(jButtonP5, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST5);
-		
-		jPanelContent1.setBackground(new Color(46,42,42));
-		jPanelContent2.setBackground(new Color(46,42,42));
-		jPanelContent3.setBackground(new Color(46,42,42));
-		jPanelContent4.setBackground(new Color(46,42,42));
-		jPanelContent5.setBackground(new Color(46,42,42));
+				JFrameMain.getInstance(), Constants.COMMAND_TEST5, JButtonTest5);
+
+		configureJButtonsTest(JButtonTest1);
+		configureJButtonsTest(JButtonTest2);
+		configureJButtonsTest(JButtonTest3);
+		configureJButtonsTest(JButtonTest4);
+		configureJButtonsTest(JButtonTest5);
+
+		jButtonP1.setLayout(new BorderLayout());
+		jButtonP1.setPreferredSize(new Dimension(100, 0));
+		jButtonP1.add(JButtonTest1, BorderLayout.EAST);
 
 		addComponentsTop();
 		addComponentsCenter();
 		addComponentsBottom();
 		this.add(jScrollPane);
 		animate();
+	}
+
+	private void configureJButtonsTest(JButton button) {
+		button.setContentAreaFilled(false);
+		button.setBorderPainted(false);
+		button.setFocusPainted(false);
 	}
 
 	private void animate() {
@@ -209,37 +238,38 @@ public class JPanelMain extends JPanel {
 				deployPanel(contentH, i);
 			}
 			if (jPanelContainer.getHeight() > contentH) {
-				jPanelContainer.setPreferredSize(new Dimension(1250 * JFrameMain.WIDTH_SCREEN / 1920,
-						(200* JFrameMain.HEIGHT_SCREEN /1080) + (jPanelContainer.getHeight() - (jPanelContainer.getHeight() - contentH))));
+				jPanelContainer.setPreferredSize(
+						new Dimension(1250 * JFrameMain.WIDTH_SCREEN / 1920, (200 * JFrameMain.HEIGHT_SCREEN / 1080)
+								+ (jPanelContainer.getHeight() - (jPanelContainer.getHeight() - contentH))));
 			}
 		}
 	}
 
 	private void deployPanel(int contentH, int i) {
 		this.jPanelContainer.add((JPanel) activePanels.get(i)[0]).setBounds(30 * JFrameMain.WIDTH_SCREEN / 1920, coordy,
-				JFrameMain.WIDTH_FRAME - (70 * JFrameMain.WIDTH_SCREEN / 1920), 400* JFrameMain.HEIGHT_SCREEN /1080);
+				JFrameMain.WIDTH_FRAME - (70 * JFrameMain.WIDTH_SCREEN / 1920), 400 * JFrameMain.HEIGHT_SCREEN / 1080);
 		if (contentH > jPanelContainer.getHeight()) {
-			jPanelContainer.setPreferredSize(
-					new Dimension(1250 * JFrameMain.WIDTH_SCREEN / 1920, jPanelContainer.getHeight() + 400* JFrameMain.HEIGHT_SCREEN /1080));
+			jPanelContainer.setPreferredSize(new Dimension(1250 * JFrameMain.WIDTH_SCREEN / 1920,
+					jPanelContainer.getHeight() + 400 * JFrameMain.HEIGHT_SCREEN / 1080));
 		}
-		coordy += 407* JFrameMain.HEIGHT_SCREEN /1080;
+		coordy += 407 * JFrameMain.HEIGHT_SCREEN / 1080;
 	}
 
 	private void addComponentsBottom() {
 		jLabelResult.setVisible(true);
 		jLabelImage.setVisible(true);
-		coordy += 10*JFrameMain.HEIGHT_SCREEN /1080;
+		coordy += 10 * JFrameMain.HEIGHT_SCREEN / 1080;
 		this.jPanelContainer.add(jLabelResult).setBounds(
 				(1250 * JFrameMain.WIDTH_SCREEN / 1920) / 2 - (200 * JFrameMain.WIDTH_SCREEN / 1920), coordy,
-				400 * JFrameMain.WIDTH_SCREEN / 1920, 30* JFrameMain.HEIGHT_SCREEN /1080);
+				400 * JFrameMain.WIDTH_SCREEN / 1920, 30 * JFrameMain.HEIGHT_SCREEN / 1080);
 		coordy += 40;
 		this.jPanelContainer.add(jLabelImage).setBounds(
 				(1250 * JFrameMain.WIDTH_SCREEN / 1920) / 2 - (300 * JFrameMain.WIDTH_SCREEN / 1920), coordy,
-				600 * JFrameMain.WIDTH_SCREEN / 1920, 100* JFrameMain.HEIGHT_SCREEN /1080);
+				600 * JFrameMain.WIDTH_SCREEN / 1920, 100 * JFrameMain.HEIGHT_SCREEN / 1080);
 	}
 
 	private void configureButtons(JButton jButton, Color colorBackground, int size, ActionListener actionListener,
-			String actionCommand) {
+			String actionCommand, JButton buttonTest) {
 		jButton.setFont(new Font(Constants.FONT_APP, Font.BOLD, size));
 		jButton.setForeground(Color.WHITE);
 		jButton.setFocusPainted(false);
@@ -260,6 +290,10 @@ public class JPanelMain extends JPanel {
 				jButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 		});
+		if (buttonTest != null) {
+			jButton.setLayout(new BorderLayout());
+			jButton.add(buttonTest, BorderLayout.EAST);
+		}
 	}
 
 	private void configureLabel(JLabel jLabel, int fontSize, int style, Color color) {
