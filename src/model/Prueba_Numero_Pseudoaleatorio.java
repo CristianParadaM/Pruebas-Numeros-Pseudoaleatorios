@@ -19,9 +19,10 @@ public abstract class Prueba_Numero_Pseudoaleatorio {
 		try {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNext()) {
-				String number = scanner.nextLine().replace(',', '.');
-				list.add(Double.parseDouble((number.length()>7?number.substring(0,7):number)));
+				String number = scanner.nextLine().replace(",", ".");
+				list.add(Double.parseDouble((number)));
 			}
+			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
