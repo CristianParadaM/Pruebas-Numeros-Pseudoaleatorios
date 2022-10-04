@@ -48,8 +48,8 @@ public class JPanelMain extends JPanel {
 	private JButton jButtonP4;
 	private JButton jButtonP5;
 
-	private JPanel jPanelContent1;
-	private JPanel jPanelContent2;
+	private JPanelTestMedia jPanelContent1;
+	private JPanelTestVarianza jPanelContent2;
 	private JPanelTestKS jPanelContent3;
 	private JPanelTestChi2 jPanelContent4;
 	private JPanelTestPoker jPanelContent5;
@@ -85,8 +85,8 @@ public class JPanelMain extends JPanel {
 		this.jButtonP4 = new JButton("Prueba de Chi2");
 		this.jButtonP5 = new JButton("Prueba de Poker");
 
-		this.jPanelContent1 = new JPanel();
-		this.jPanelContent2 = new JPanel();
+		this.jPanelContent1 = new JPanelTestMedia(null, null, false);
+		this.jPanelContent2 = new JPanelTestVarianza(null, null, false);
 		this.jPanelContent3 = new JPanelTestKS();
 		this.jPanelContent4 = new JPanelTestChi2();
 		this.jPanelContent5 = new JPanelTestPoker();
