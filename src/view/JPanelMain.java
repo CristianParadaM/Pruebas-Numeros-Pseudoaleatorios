@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+
 import controller.Controller;
 import view.utils.Constants;
 
@@ -46,11 +48,11 @@ public class JPanelMain extends JPanel {
 	private JButton jButtonP4;
 	private JButton jButtonP5;
 
-	private JPanelTest jPanelContent1;
-	private JPanelTest jPanelContent2;
-	private JPanelTest jPanelContent3;
-	private JPanelTest jPanelContent4;
-	private JPanelTest jPanelContent5;
+	private JPanel jPanelContent1;
+	private JPanel jPanelContent2;
+	private JPanelTestKS jPanelContent3;
+	private JPanelTestChi2 jPanelContent4;
+	private JPanelTestPoker jPanelContent5;
 
 	private JButton JButtonTest1;
 	private JButton JButtonTest2;
@@ -65,7 +67,7 @@ public class JPanelMain extends JPanel {
 
 	public JPanelMain() {
 		super(new GridLayout());
-		this.jLabelResult = new JLabel("Aun no has realizado la prueba", JLabel.CENTER);
+		this.jLabelResult = new JLabel("Aun no has realizado alguna prueba", JLabel.CENTER);
 		this.jLabelImage = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(Constants.PATH_IMG_LOGO))
 				.getImage().getScaledInstance(600 * JFrameMain.WIDTH_SCREEN / 1920,
 						100 * JFrameMain.HEIGHT_SCREEN / 1080, Image.SCALE_SMOOTH)));
@@ -74,7 +76,7 @@ public class JPanelMain extends JPanel {
 		this.jLabelTitle = new JLabel("PROGRAMA DE VALIDACIÓN DE NÚMEROS PSEUDOALEATORIOS", JLabel.CENTER);
 		this.jButtonLoadFile = new JButton("Seleccione algun archivo");
 		this.jButtonStart = new JButton("Empezar Pruebas");
-		this.jLabelPath = new JLabel("C:User/Escritorio/MiArchivo.csv", JLabel.CENTER);
+		this.jLabelPath = new JLabel("", JLabel.CENTER);
 		this.jLabelHelp = new JLabel("", JLabel.CENTER);
 
 		this.jButtonP1 = new JButton("Prueba de Medias");
@@ -83,22 +85,20 @@ public class JPanelMain extends JPanel {
 		this.jButtonP4 = new JButton("Prueba de Chi2");
 		this.jButtonP5 = new JButton("Prueba de Poker");
 
-		this.jPanelContent1 = new JPanelTest();
-		this.jPanelContent2 = new JPanelTest();
-		this.jPanelContent3 = new JPanelTest();
-		this.jPanelContent4 = new JPanelTest();
-		this.jPanelContent5 = new JPanelTest();
+		this.jPanelContent1 = new JPanel();
+		this.jPanelContent2 = new JPanel();
+		this.jPanelContent3 = new JPanelTestKS();
+		this.jPanelContent4 = new JPanelTestChi2();
+		this.jPanelContent5 = new JPanelTestPoker();
 
-		this.JButtonTest1 = new JButton(new ImageIcon(
-				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		this.JButtonTest2 = new JButton(new ImageIcon(
-				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		this.JButtonTest3 = new JButton(new ImageIcon(
-				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		this.JButtonTest4 = new JButton(new ImageIcon(
-				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		this.JButtonTest5 = new JButton(new ImageIcon(
-				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+		ImageIcon icon = new ImageIcon(
+				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+
+		this.JButtonTest1 = new JButton(icon);
+		this.JButtonTest2 = new JButton(icon);
+		this.JButtonTest3 = new JButton(icon);
+		this.JButtonTest4 = new JButton(icon);
+		this.JButtonTest5 = new JButton(icon);
 
 		this.activeButtons = new ArrayList<Object[]>();
 		this.activePanels = new ArrayList<Object[]>();
@@ -122,11 +122,22 @@ public class JPanelMain extends JPanel {
 		this.jScrollPane.setViewportView(jPanelContainer);
 		this.jScrollPane.setOpaque(false);
 		this.jScrollPane.getViewport().setOpaque(false);
-		this.jScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+		this.jScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		this.jScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 		this.jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.jScrollPane.getVerticalScrollBar().setUnitIncrement(5);
+		this.jScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(38, 38, 38);
+			}
+
+		});
+		jScrollPane.getVerticalScrollBar().setBackground(new Color(175, 171, 171));
+		
 		this.jPanelContainer
 				.setPreferredSize(new Dimension(JFrameMain.WIDTH_FRAME - (100 * JFrameMain.WIDTH_SCREEN / 1920), 750));
+		
 		this.jPanelContainer.setSize(new Dimension(JFrameMain.WIDTH_FRAME - (100 * JFrameMain.WIDTH_SCREEN / 1920),
 				750 * JFrameMain.HEIGHT_SCREEN / 1080));
 
@@ -135,7 +146,7 @@ public class JPanelMain extends JPanel {
 		configureLabel(jLabelHelp, Constants.FONT_SIZE_APP_PLACEHOLDER, Font.PLAIN, Color.WHITE);
 		configureLabel(jLabelResult, Constants.FONT_SIZE_APP_LABELS, Font.BOLD, Color.WHITE);
 		configureButtons(jButtonLoadFile, Constants.COLOR_BACKGROUND_GRADIENT_TWO, Constants.FONT_SIZE_APP_BUTTONS,
-				JFrameMain.getInstance(), Constants.COMMAND_LOAD_FILE, null);
+				Controller.getInstance(), Constants.COMMAND_LOAD_FILE, null);
 		configureButtons(jButtonStart, Constants.COLOR_BUTTONS_METHODS, Constants.FONT_SIZE_APP_BUTTONS,
 				Controller.getInstance(), Constants.COMMAND_START, null);
 
@@ -159,10 +170,6 @@ public class JPanelMain extends JPanel {
 		configureJButtonsTest(JButtonTest3);
 		configureJButtonsTest(JButtonTest4);
 		configureJButtonsTest(JButtonTest5);
-
-		jButtonP1.setLayout(new BorderLayout());
-		jButtonP1.setPreferredSize(new Dimension(100, 0));
-		jButtonP1.add(JButtonTest1, BorderLayout.EAST);
 
 		addComponentsTop();
 		addComponentsCenter();
@@ -209,9 +216,8 @@ public class JPanelMain extends JPanel {
 		this.jPanelContainer.add(jButtonStart).setBounds((JFrameMain.WIDTH_FRAME / 2) + 10,
 				80 * JFrameMain.HEIGHT_SCREEN / 1080, 250 * JFrameMain.WIDTH_SCREEN / 1920,
 				40 * JFrameMain.HEIGHT_SCREEN / 1080);
-		this.jPanelContainer.add(jLabelPath).setBounds((JFrameMain.WIDTH_FRAME / 2) - 200,
-				150 * JFrameMain.HEIGHT_SCREEN / 1080, 400 * JFrameMain.WIDTH_SCREEN / 1920,
-				30 * JFrameMain.HEIGHT_SCREEN / 1080);
+		this.jPanelContainer.add(jLabelPath).setBounds(200, 150 * JFrameMain.HEIGHT_SCREEN / 1080,
+				900 * JFrameMain.WIDTH_SCREEN / 1920, 30 * JFrameMain.HEIGHT_SCREEN / 1080);
 		this.jPanelContainer.add(jLabelHelp).setBounds(30 * JFrameMain.WIDTH_SCREEN / 1920,
 				200 * JFrameMain.HEIGHT_SCREEN / 1080, JFrameMain.WIDTH_FRAME - (60 * JFrameMain.WIDTH_SCREEN / 1920),
 				20 * JFrameMain.HEIGHT_SCREEN / 1080);
@@ -227,8 +233,8 @@ public class JPanelMain extends JPanel {
 			((JPanel) activePanels.get(i)[0]).setVisible((boolean) activePanels.get(i)[1]);
 		}
 		for (int i = 0; i < activeButtons.size(); i++) {
-			this.jPanelContainer.add((JButton) activeButtons.get(i)[0]).setBounds(30 * JFrameMain.WIDTH_SCREEN / 1920,
-					coordy, JFrameMain.WIDTH_FRAME - (70 * JFrameMain.WIDTH_SCREEN / 1920),
+			this.jPanelContainer.add((JButton) activeButtons.get(i)[0]).setBounds(40 * JFrameMain.WIDTH_SCREEN / 1920,
+					coordy, JFrameMain.WIDTH_FRAME - (100 * JFrameMain.WIDTH_SCREEN / 1920),
 					55 * JFrameMain.HEIGHT_SCREEN / 1080);
 			coordy += 62 * JFrameMain.HEIGHT_SCREEN / 1080;
 			contentH = ((240 * JFrameMain.HEIGHT_SCREEN / 1080) + (((55 * JFrameMain.HEIGHT_SCREEN / 1080) * aux2)
@@ -246,13 +252,13 @@ public class JPanelMain extends JPanel {
 	}
 
 	private void deployPanel(int contentH, int i) {
-		this.jPanelContainer.add((JPanel) activePanels.get(i)[0]).setBounds(30 * JFrameMain.WIDTH_SCREEN / 1920, coordy,
-				JFrameMain.WIDTH_FRAME - (70 * JFrameMain.WIDTH_SCREEN / 1920), 400 * JFrameMain.HEIGHT_SCREEN / 1080);
+		this.jPanelContainer.add((JPanel) activePanels.get(i)[0]).setBounds(40 * JFrameMain.WIDTH_SCREEN / 1920, coordy,
+				JFrameMain.WIDTH_FRAME - (100 * JFrameMain.WIDTH_SCREEN / 1920), 500 * JFrameMain.HEIGHT_SCREEN / 1080);
 		if (contentH > jPanelContainer.getHeight()) {
 			jPanelContainer.setPreferredSize(new Dimension(1250 * JFrameMain.WIDTH_SCREEN / 1920,
-					jPanelContainer.getHeight() + 400 * JFrameMain.HEIGHT_SCREEN / 1080));
+					jPanelContainer.getHeight() + 500 * JFrameMain.HEIGHT_SCREEN / 1080));
 		}
-		coordy += 407 * JFrameMain.HEIGHT_SCREEN / 1080;
+		coordy += 507 * JFrameMain.HEIGHT_SCREEN / 1080;
 	}
 
 	private void addComponentsBottom() {
@@ -289,6 +295,7 @@ public class JPanelMain extends JPanel {
 				jButton.setBorder(new LineBorder(Color.WHITE));
 				jButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
+
 		});
 		if (buttonTest != null) {
 			jButton.setLayout(new BorderLayout());
@@ -328,5 +335,9 @@ public class JPanelMain extends JPanel {
 		addComponentsTop();
 		addComponentsCenter();
 		addComponentsBottom();
+	}
+
+	public void showPath(String path) {
+		this.jLabelPath.setText(path);
 	}
 }

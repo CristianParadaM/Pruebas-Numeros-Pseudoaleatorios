@@ -53,10 +53,14 @@ public class JFrameMain extends JFrame implements ActionListener {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(WIDTH_FRAME,HEIGHT_FRAME);
-		this.setMinimumSize(new Dimension(1300 * WIDTH_FRAME / 1920, 800 * HEIGHT_SCREEN / 1080));
+		this.setMinimumSize(new Dimension(1400 * WIDTH_FRAME / 1920, 800 * HEIGHT_SCREEN / 1080));
 		this.setLocationRelativeTo(null);
 		this.setContentPane(jPanelMain);
 		this.setVisible(true);
+	}
+
+	public void showPath(String path) {
+		jPanelMain.showPath(path);
 	}
 
 }

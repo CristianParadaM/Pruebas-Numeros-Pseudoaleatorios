@@ -57,7 +57,7 @@ public class JTableMethod extends JScrollPane {
 
 			@Override
 			protected void setValue(Object value) {
-				setFont(new Font(Constants.FONT_APP, Font.PLAIN, Constants.FONT_SIZE_APP_LABELS));
+				setFont(new Font(Constants.FONT_APP, Font.PLAIN, Constants.FONT_SIZE_APP_PLACEHOLDER));
 				setForeground(Color.WHITE);
 				setBackground(new Color(80, 78, 79));
 				super.setValue(value);
@@ -68,7 +68,7 @@ public class JTableMethod extends JScrollPane {
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused,
 					int row, int column) {
 				super.getTableCellRendererComponent(table, value, selected, focused, row, column);
-				if ((Integer)table.getValueAt(row, 0) % 2 == 0) {
+				if (row % 2 == 0) {
 					this.setBackground(new Color(80,78,78));
 				} else {
 					this.setBackground(new Color(59,56,56));
@@ -116,15 +116,14 @@ public class JTableMethod extends JScrollPane {
 				infoTable.get(row)[column] = aValue;
 			}
 		};
-
+		this.setBorder(BorderFactory.createEmptyBorder());
 		jTable = new JTable(dataModel);
-		jTable.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
-		jTable.getTableHeader().setFont(new Font(Constants.FONT_APP, Font.PLAIN, Constants.FONT_SIZE_APP_LABELS));
+		jTable.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.WHITE));
+		jTable.getTableHeader().setFont(new Font(Constants.FONT_APP, Font.PLAIN, Constants.FONT_SIZE_APP_PLACEHOLDER));
 		jTable.getTableHeader().setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		jTable.getTableHeader().setPreferredSize(new Dimension(0, 40 * JFrameMain.HEIGHT_SCREEN / 1080));
 		jTable.getTableHeader().setBackground(new Color(59,56,56));
 		jTable.getTableHeader().setForeground(Color.WHITE);
-
 		jTable.getTableHeader().setReorderingAllowed(false);
 
 		for (int i = 0; i < columnNames.length; i++) {
@@ -132,12 +131,10 @@ public class JTableMethod extends JScrollPane {
 			tableColumn.setCellRenderer(cellRender);
 
 		}
-		
 		jTable.setShowGrid(false);
-
-		this.setViewportView(jTable);
-		this.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 		jTable.setRowHeight(42 * JFrameMain.HEIGHT_SCREEN / 1080);
+		this.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+		this.setViewportView(jTable);
 	}
 
 }

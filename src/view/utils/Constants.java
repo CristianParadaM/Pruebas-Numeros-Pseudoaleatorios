@@ -8,7 +8,7 @@ public class Constants {
 	
 	//TEXT
 	public static final String VERSION = "Version 1.0";
-	public static final String HELP = "Recuerda subir un archivo donde estén registrados en una columna los números Ri (sin cabecera, solo los número)... :)";
+	public static final String HELP = "Recuerda subir un archivo donde estén registrados en una columna los números Ri (sin cabecera, solo los numeros)... :)";
 	
 	//COMMANDS
 	public static final String COMMAND_LOAD_FILE = "COMMAND_LOAD_FILE";
