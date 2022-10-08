@@ -43,39 +43,20 @@ public class JPanelTestKS extends JPanel {
 
 	private GridBagConstraints gbc;
 
-	public JPanelTestKS(Object... objects) {
+	@SuppressWarnings("unchecked")
+	public JPanelTestKS(Object...objects) {
 		super(new GridBagLayout());
-		ArrayList<Object[]> entries = new ArrayList<Object[]>();
-		entries.add(new Object[] { 1, 0.21312 });
-		entries.add(new Object[] { 2, 0.21312 });
-		entries.add(new Object[] { 3, 0.21312 });
-		entries.add(new Object[] { 4, 0.21312 });
-		entries.add(new Object[] { 5, 0.21312 });
-		entries.add(new Object[] { 6, 0.21312 });
-		entries.add(new Object[] { 7, 0.21312 });
-		entries.add(new Object[] { 8, 0.21312 });
-		entries.add(new Object[] { 9, 0.21312 });
-		entries.add(new Object[] { 10, 0.21312 });
-		entries.add(new Object[] { 11, 0.21312 });
+		ArrayList<Object[]> entries = (ArrayList<Object[]>)(objects[0]);
 		String[] entriesNames = new String[] { "i", "xi" };
-		ArrayList<Object[]> criteries = new ArrayList<Object[]>();
-		criteries.add(new Object[] { "95%", "5%", 50, 0.5432, 0.025, 1.962 });
+		ArrayList<Object[]> criteries = (ArrayList<Object[]>)(objects[1]);
 		String[] criteriesNames = new String[] { "aceptacion", "α", "n", "Media", "Min", "Max" };
 
-		ArrayList<Object[]> criteries2 = new ArrayList<Object[]>();
-		criteries2.add(new Object[] { 0, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
-		criteries2.add(new Object[] { 1, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
-		criteries2.add(new Object[] { 2, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
-		criteries2.add(new Object[] { 3, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
-		criteries2.add(new Object[] { 4, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
-		criteries2.add(new Object[] { 5, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
-		criteries2.add(new Object[] { 6, 0, 0.1, 0.5432, 0.025, 0.340, 0.2314, 0.340, 0.12 });
+		ArrayList<Object[]> criteries2 = (ArrayList<Object[]>)(objects[2]);
 
 		String[] criteries2Names = new String[] { "i", "inicial", "final", "Frec. Obt", "Frec. Obt. A", "Prob. Obt",
 				"Frec. Esp A.", "Prob. Esp", "Diferencia" };
 
-		ArrayList<Object[]> result = new ArrayList<Object[]>();
-		result.add(new Object[] { 0.06, 0.18841 });
+		ArrayList<Object[]> result = (ArrayList<Object[]>)(objects[3]);
 
 		String[] resultNames = new String[] { "DMax", "DMaxP" };
 
@@ -86,7 +67,7 @@ public class JPanelTestKS extends JPanel {
 		this.jLabelEntries = new JLabel("Entradas:         ");
 		this.jLabelCriteries = new JLabel("Criterios de evaluacion:");
 		this.jLabelResult = new JLabel("Resultado:");
-		if (false) {
+		if ((boolean)objects[4]) {
 			this.jLabelResultText = new JLabel("<html><p style='text-align:justify;'>"
 					+ "<font color='2FC714'>Felicidades</font>, ha superado la prueba debido a que la máxima diferencia DMax no supera a la máxima diferencia de la tabla DMaxP para un error de 5%"
 					+ "</p></html>");

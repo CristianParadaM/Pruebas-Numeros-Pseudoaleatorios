@@ -18,6 +18,11 @@ public class Constants {
 	public static final String COMMAND_TEST3 = "COMMAND_TEST3";
 	public static final String COMMAND_TEST4 = "COMMAND_TEST4";
 	public static final String COMMAND_TEST5 = "COMMAND_TEST5";
+	public static final String COMMAND_TEST1_START = "COMMAND_TEST1_START";
+	public static final String COMMAND_TEST2_START = "COMMAND_TEST2_START";
+	public static final String COMMAND_TEST3_START = "COMMAND_TEST3_START";
+	public static final String COMMAND_TEST4_START = "COMMAND_TEST4_START";
+	public static final String COMMAND_TEST5_START = "COMMAND_TEST5_START";
 	
 	//ERRORS
 	public static final String ERROR = "Error";

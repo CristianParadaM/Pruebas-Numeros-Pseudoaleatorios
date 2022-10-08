@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
 import view.utils.Constants;
 import view.utils.JTableMethod;
 
-public class JPanelTestPoker extends JPanel{
+public class JPanelTestPoker extends JPanel {
 
 	private JPanel jPanelContent1;
 	private JPanel jPanelContent2;
@@ -41,36 +41,16 @@ public class JPanelTestPoker extends JPanel{
 
 	public JPanelTestPoker(Object... objects) {
 		super(new GridBagLayout());
-		ArrayList<Object[]> entries = new ArrayList<Object[]>();
-		entries.add(new Object[] { 1, 0.21312 });
-		entries.add(new Object[] { 2, 0.21312 });
-		entries.add(new Object[] { 3, 0.21312 });
-		entries.add(new Object[] { 4, 0.21312 });
-		entries.add(new Object[] { 5, 0.21312 });
-		entries.add(new Object[] { 6, 0.21312 });
-		entries.add(new Object[] { 7, 0.21312 });
-		entries.add(new Object[] { 8, 0.21312 });
-		entries.add(new Object[] { 9, 0.21312 });
-		entries.add(new Object[] { 10, 0.21312 });
-		entries.add(new Object[] { 11, 0.21312 });
+		ArrayList<Object[]> entries = (ArrayList<Object[]>) (objects[0]);
 		String[] entriesNames = new String[] { "i", "xi" };
 
-		ArrayList<Object[]> criteries = new ArrayList<Object[]>();
-		criteries.add(new Object[] { 0, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 1, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 2, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 3, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 4, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 5, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 6, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 7, 0, 0.1, 0.5432, 0.025, 0.340});
+		ArrayList<Object[]> criteries = (ArrayList<Object[]>) (objects[1]);
 
-		String[] criteriesNames = new String[] { "Categoria", "Oi", "Probab", "Ei", "(Ei-Oi)^2/Ei"};
+		String[] criteriesNames = new String[] { "Categoria", "Oi", "Probab", "Ei", "(Ei-Oi)^2/Ei" };
 
-		ArrayList<Object[]> result = new ArrayList<Object[]>();
-		result.add(new Object[] { 0.06, 0.1421 });
+		ArrayList<Object[]> result = (ArrayList<Object[]>)(objects[2]);
 
-		String[] resultNames = new String[] { "Sumatoria","Maximo error (Tabla)" };
+		String[] resultNames = new String[] { "Sumatoria", "Maximo error (Tabla)" };
 
 		this.jPanelBottom1 = new JPanel(new GridBagLayout());
 		this.jPanelBottom2 = new JPanel(new GridBagLayout());
@@ -80,7 +60,7 @@ public class JPanelTestPoker extends JPanel{
 		this.jLabelCriteries = new JLabel("Criterios de evaluacion:");
 		this.jLabelResult = new JLabel("Resultado:");
 
-		if (false) {
+		if ((boolean)objects[3]) {
 			this.jLabelResultText = new JLabel("<html><p style='text-align:justify;'>"
 					+ "<font color='2FC714'>Felicidades</font>, ha superado la prueba debido a que el error obtenido (Sumatoria) no supera al máximo error de la tabla (Máximo error) para un error de 5%"
 					+ "</p></html>");
@@ -158,7 +138,7 @@ public class JPanelTestPoker extends JPanel{
 		this.jPanelBottom1.add(jLabelResult, gbc);
 		gbc.gridy = 1;
 		this.jPanelBottom1.add(jLabelResultText, gbc);
-		
+
 		gbc = new GridBagConstraints();
 		gbc.weightx = 1;
 		gbc.weighty = 1;
@@ -169,12 +149,10 @@ public class JPanelTestPoker extends JPanel{
 		gbc.insets.bottom = 20;
 		gbc.gridy = 1;
 		gbc.weighty = 1;
-		gbc.fill =0;
+		gbc.fill = 0;
 		gbc.insets.right = 60;
 		gbc.insets.left = 60;
 		this.jPanelBottom2.add(jButtonViewTableChi2, gbc);
-		
-		
 
 	}
 
@@ -187,7 +165,7 @@ public class JPanelTestPoker extends JPanel{
 		jButton.addActionListener((e) -> {
 			JDialog jDialog = new JDialog(JFrameMain.getInstance(), true);
 			jDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			jDialog.setSize(960,740);
+			jDialog.setSize(960, 740);
 			jDialog.setLocationRelativeTo(null);
 			jDialog.setResizable(false);
 

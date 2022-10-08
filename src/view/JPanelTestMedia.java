@@ -29,21 +29,8 @@ public class JPanelTestMedia extends JPanel{
 	
 	public JPanelTestMedia(ArrayList<Object[]> tableData, ArrayList<Object[]> tableInfo, boolean approved) {
 		super(new GridBagLayout());
-		ArrayList<Object[]> tableData1 = new ArrayList<Object[]>();
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		ArrayList<Object[]> tableData2 = new ArrayList<Object[]>();
-		tableData2.add(new Object[] {"95%", "5%", 50, 23.4, 0.303, 0.232, 0.323, 0.321});
-		this.tableData = new JTableMethod(tableData1, new String[] {"i","Ri"});
-		this.tableInfo = new JTableMethod(tableData2, new String[] {"Aceptacion","α", "n", "Media", "1-(α/2)", "z", "Li", "Ls"});
+		this.tableData = new JTableMethod(tableData, new String[] {"i","Ri"});
+		this.tableInfo = new JTableMethod(tableInfo, new String[] {"Aceptacion","α", "n", "Media", "1-(α/2)", "z", "Li", "Ls"});
 		this.tittleData = new JLabel("Entradas:       ");
 		this.tittleInfo = new JLabel("Criterios de evaluación");
 		this.tittleResult = new JLabel("Resultados");
@@ -53,9 +40,6 @@ public class JPanelTestMedia extends JPanel{
 		this.jPanelProcess = new JPanel(new GridBagLayout());
 		init(approved);
 	}
-
-
-
 
 	private void init(boolean approved) {
 		this.setBackground(new Color(46,42,42));

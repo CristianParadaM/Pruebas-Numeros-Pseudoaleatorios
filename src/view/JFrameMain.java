@@ -6,10 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import view.utils.Constants;
 
-public class JFrameMain extends JFrame implements ActionListener {
+public class JFrameMain extends JFrame {
 
 	public static final int WIDTH_SCREEN = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int HEIGHT_SCREEN = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -28,31 +29,16 @@ public class JFrameMain extends JFrame implements ActionListener {
 	public JFrameMain() {
 		super("Pruebas para numeros Pseudoaletarios");
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-		case Constants.COMMAND_LOAD_FILE -> loadFile();
-		case Constants.COMMAND_TEST1 -> showTest(0);
-		case Constants.COMMAND_TEST2 -> showTest(1);
-		case Constants.COMMAND_TEST3 -> showTest(2);
-		case Constants.COMMAND_TEST4 -> showTest(3);
-		case Constants.COMMAND_TEST5 -> showTest(4);
-		}
-	}
 
-	private void showTest(int index) {
-		jPanelMain.showPanel(index);
-	}
-
-	private void loadFile() {
+	public void showTest(int index, Object... object) {
+		jPanelMain.showPanel(index, object);
 	}
 
 	public void init() {
 		this.jPanelMain = new JPanelMain();
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(WIDTH_FRAME,HEIGHT_FRAME);
+		this.setSize(WIDTH_FRAME, HEIGHT_FRAME);
 		this.setMinimumSize(new Dimension(1400 * WIDTH_FRAME / 1920, 800 * HEIGHT_SCREEN / 1080));
 		this.setLocationRelativeTo(null);
 		this.setContentPane(jPanelMain);
@@ -61,6 +47,10 @@ public class JFrameMain extends JFrame implements ActionListener {
 
 	public void showPath(String path) {
 		jPanelMain.showPath(path);
+	}
+
+	public void alert(String message, String title, int type) {
+		JOptionPane.showMessageDialog(this, message, title, type);
 	}
 
 }

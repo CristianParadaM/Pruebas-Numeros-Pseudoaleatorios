@@ -27,21 +27,8 @@ public class JPanelTestVarianza extends JPanel {
 	
 	public JPanelTestVarianza(ArrayList<Object[]> tableData, ArrayList<Object[]> tableInfo, boolean approved) {
 		super(new GridBagLayout());
-		ArrayList<Object[]> tableData1 = new ArrayList<Object[]>();
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		tableData1.add(new Object[] {1, 0.123});
-		ArrayList<Object[]> tableData2 = new ArrayList<Object[]>();
-		tableData2.add(new Object[] {"95%", "5%", 50, 0.5432, 0.025, 1.962, 0.4321, 70.32, 31.12, 0.132, 0.054});
-		this.tableData = new JTableMethod(tableData1, new String[] {"i","Ri"});
-		this.tableInfo = new JTableMethod(tableData2, new String[] {"Aceptacion","α", "n", "Media", "σ^2", "α/2", "1-(α/2)", "(X^2)_α/2", "(X^2)_1-(α/2)", "Li", "Ls"});
+		this.tableData = new JTableMethod(tableData, new String[] {"i","Ri"});
+		this.tableInfo = new JTableMethod(tableInfo, new String[] {"Aceptacion","α", "n", "Media", "σ^2", "α/2", "1-(α/2)", "(X^2)_α/2", "(X^2)_1-(α/2)", "Li", "Ls"});
 		this.tittleData = new JLabel("Entradas:    ");
 		this.tittleInfo = new JLabel("Criterios de evaluación");
 		this.tittleResult = new JLabel("Resultados");

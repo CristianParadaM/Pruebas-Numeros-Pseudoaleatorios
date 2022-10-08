@@ -10,7 +10,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -85,12 +84,6 @@ public class JPanelMain extends JPanel {
 		this.jButtonP4 = new JButton("Prueba de Chi2");
 		this.jButtonP5 = new JButton("Prueba de Poker");
 
-		this.jPanelContent1 = new JPanelTestMedia(null, null, false);
-		this.jPanelContent2 = new JPanelTestVarianza(null, null, false);
-		this.jPanelContent3 = new JPanelTestKS();
-		this.jPanelContent4 = new JPanelTestChi2();
-		this.jPanelContent5 = new JPanelTestPoker();
-
 		ImageIcon icon = new ImageIcon(
 				new ImageIcon("src/res/play.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 
@@ -134,10 +127,10 @@ public class JPanelMain extends JPanel {
 
 		});
 		jScrollPane.getVerticalScrollBar().setBackground(new Color(175, 171, 171));
-		
+
 		this.jPanelContainer
 				.setPreferredSize(new Dimension(JFrameMain.WIDTH_FRAME - (100 * JFrameMain.WIDTH_SCREEN / 1920), 750));
-		
+
 		this.jPanelContainer.setSize(new Dimension(JFrameMain.WIDTH_FRAME - (100 * JFrameMain.WIDTH_SCREEN / 1920),
 				750 * JFrameMain.HEIGHT_SCREEN / 1080));
 
@@ -155,21 +148,21 @@ public class JPanelMain extends JPanel {
 		this.jLabelResult.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
 
 		configureButtons(jButtonP1, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST1, JButtonTest1);
+				Controller.getInstance(), Constants.COMMAND_TEST1, JButtonTest1);
 		configureButtons(jButtonP2, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST2, JButtonTest2);
+				Controller.getInstance(), Constants.COMMAND_TEST2, JButtonTest2);
 		configureButtons(jButtonP3, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST3, JButtonTest3);
+				Controller.getInstance(), Constants.COMMAND_TEST3, JButtonTest3);
 		configureButtons(jButtonP4, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST4, JButtonTest4);
+				Controller.getInstance(), Constants.COMMAND_TEST4, JButtonTest4);
 		configureButtons(jButtonP5, Constants.COLOR_BACKGROUND_CONTENT, Constants.FONT_SIZE_APP_TITLES,
-				JFrameMain.getInstance(), Constants.COMMAND_TEST5, JButtonTest5);
+				Controller.getInstance(), Constants.COMMAND_TEST5, JButtonTest5);
 
-		configureJButtonsTest(JButtonTest1);
-		configureJButtonsTest(JButtonTest2);
-		configureJButtonsTest(JButtonTest3);
-		configureJButtonsTest(JButtonTest4);
-		configureJButtonsTest(JButtonTest5);
+		configureJButtonsTest(JButtonTest1, Constants.COMMAND_TEST1_START);
+		configureJButtonsTest(JButtonTest2, Constants.COMMAND_TEST2_START);
+		configureJButtonsTest(JButtonTest3, Constants.COMMAND_TEST3_START);
+		configureJButtonsTest(JButtonTest4, Constants.COMMAND_TEST4_START);
+		configureJButtonsTest(JButtonTest5, Constants.COMMAND_TEST5_START);
 
 		addComponentsTop();
 		addComponentsCenter();
@@ -178,10 +171,12 @@ public class JPanelMain extends JPanel {
 		animate();
 	}
 
-	private void configureJButtonsTest(JButton button) {
+	private void configureJButtonsTest(JButton button, String actioncomand) {
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
 		button.setFocusPainted(false);
+		button.setActionCommand(actioncomand);
+		button.addActionListener(Controller.getInstance());
 	}
 
 	private void animate() {
@@ -229,8 +224,10 @@ public class JPanelMain extends JPanel {
 		for (int i = 0; i < activeButtons.size(); i++) {
 			aux2 = (boolean) activeButtons.get(i)[1] ? aux2 + 1 : aux;
 			((JButton) activeButtons.get(i)[0]).setVisible((boolean) activeButtons.get(i)[1]);
-			aux = (boolean) activePanels.get(i)[1] ? aux + 1 : aux;
-			((JPanel) activePanels.get(i)[0]).setVisible((boolean) activePanels.get(i)[1]);
+			if (activePanels.get(i)[0] != null) {
+				aux = (boolean) activePanels.get(i)[1] ? aux + 1 : aux;
+				((JPanel) activePanels.get(i)[0]).setVisible((boolean) activePanels.get(i)[1]);
+			}
 		}
 		for (int i = 0; i < activeButtons.size(); i++) {
 			this.jPanelContainer.add((JButton) activeButtons.get(i)[0]).setBounds(40 * JFrameMain.WIDTH_SCREEN / 1920,
@@ -240,7 +237,7 @@ public class JPanelMain extends JPanel {
 			contentH = ((240 * JFrameMain.HEIGHT_SCREEN / 1080) + (((55 * JFrameMain.HEIGHT_SCREEN / 1080) * aux2)
 					+ ((400 * JFrameMain.HEIGHT_SCREEN / 1080) * aux) + ((7 * JFrameMain.HEIGHT_SCREEN / 1080) * aux2)
 					+ ((7 * JFrameMain.HEIGHT_SCREEN / 1080) * aux)));
-			if ((boolean) activePanels.get(i)[1]) {
+			if ((boolean) activePanels.get(i)[1] && activePanels.get(i)[0] != null) {
 				deployPanel(contentH, i);
 			}
 			if (jPanelContainer.getHeight() > contentH) {
@@ -318,7 +315,30 @@ public class JPanelMain extends JPanel {
 		g2d.setColor(Color.WHITE);
 	}
 
-	public void showPanel(int index) {
+	@SuppressWarnings("unchecked")
+	public void showPanel(int index, Object... object) {
+		switch (index) {
+		case 0:
+			activePanels.get(index)[0] = new JPanelTestMedia((ArrayList<Object[]>) object[0],
+					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			break;
+		case 1:
+			activePanels.get(index)[0] = new JPanelTestVarianza((ArrayList<Object[]>) object[0],
+					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			break;
+		case 2:
+			activePanels.get(index)[0] = new JPanelTestKS((ArrayList<Object[]>) object[0],
+					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			break;
+		case 3:
+			activePanels.get(index)[0] = new JPanelTestChi2((ArrayList<Object[]>) object[0],
+					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			break;
+		case 4:
+			activePanels.get(index)[0] = new JPanelTestPoker((ArrayList<Object[]>) object[0],
+					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			break;
+		}
 		activePanels.get(index)[1] = !((boolean) activePanels.get(index)[1]);
 		reOrganize();
 	}

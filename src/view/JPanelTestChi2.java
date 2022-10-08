@@ -41,34 +41,13 @@ public class JPanelTestChi2 extends JPanel {
 
 	public JPanelTestChi2(Object... objects) {
 		super(new GridBagLayout());
-		ArrayList<Object[]> entries = new ArrayList<Object[]>();
-		entries.add(new Object[] { 1, 0.21312 });
-		entries.add(new Object[] { 2, 0.21312 });
-		entries.add(new Object[] { 3, 0.21312 });
-		entries.add(new Object[] { 4, 0.21312 });
-		entries.add(new Object[] { 5, 0.21312 });
-		entries.add(new Object[] { 6, 0.21312 });
-		entries.add(new Object[] { 7, 0.21312 });
-		entries.add(new Object[] { 8, 0.21312 });
-		entries.add(new Object[] { 9, 0.21312 });
-		entries.add(new Object[] { 10, 0.21312 });
-		entries.add(new Object[] { 11, 0.21312 });
+		ArrayList<Object[]> entries = (ArrayList<Object[]>)(objects[0]);
 		String[] entriesNames = new String[] { "i", "xi" };
 
-		ArrayList<Object[]> criteries = new ArrayList<Object[]>();
-		criteries.add(new Object[] { 0, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 1, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 2, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 3, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 4, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 5, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 6, 0, 0.1, 0.5432, 0.025, 0.340});
-		criteries.add(new Object[] { 7, 0, 0.1, 0.5432, 0.025, 0.340});
-
+		ArrayList<Object[]> criteries = (ArrayList<Object[]>)(objects[1]);
 		String[] criteriesNames = new String[] { "i", "inicial", "final", "Frec. Obt", "Frec. Esp", "Chi2"};
 
-		ArrayList<Object[]> result = new ArrayList<Object[]>();
-		result.add(new Object[] { 0.06, 7, 0.1421 });
+		ArrayList<Object[]> result = (ArrayList<Object[]>)(objects[2]);
 
 		String[] resultNames = new String[] { "Sumatoria Chi2 (Error)", "Grados de libertad", "Maximo error (Tabla)" };
 
@@ -80,7 +59,7 @@ public class JPanelTestChi2 extends JPanel {
 		this.jLabelCriteries = new JLabel("Criterios de evaluacion:");
 		this.jLabelResult = new JLabel("Resultado:");
 
-		if (false) {
+		if ((boolean)objects[3]) {
 			this.jLabelResultText = new JLabel("<html><p style='text-align:justify;'>"
 					+ "<font color='2FC714'>Felicidades</font>, ha superado la prueba debido a que el error obtenido (Sumatoria Chi2) no supera al máximo error de la tabla (Máximo error) para un error de 5%"
 					+ "</p></html>");
