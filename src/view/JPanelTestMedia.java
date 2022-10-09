@@ -1,11 +1,9 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
@@ -27,10 +25,11 @@ public class JPanelTestMedia extends JPanel{
 	private JPanel jPanelProcess;
 	private GridBagConstraints gbc;
 	
-	public JPanelTestMedia(ArrayList<Object[]> tableData, ArrayList<Object[]> tableInfo, boolean approved) {
+	@SuppressWarnings("unchecked")
+	public JPanelTestMedia(Object...objects) {
 		super(new GridBagLayout());
-		this.tableData = new JTableMethod(tableData, new String[] {"i","Ri"});
-		this.tableInfo = new JTableMethod(tableInfo, new String[] {"Aceptacion","α", "n", "Media", "1-(α/2)", "z", "Li", "Ls"});
+		this.tableData = new JTableMethod((ArrayList<Object[]>) objects[0], new String[] {"i","Ri"});
+		this.tableInfo = new JTableMethod((ArrayList<Object[]>) objects[1], new String[] {"Aceptacion","α", "n", "Media", "1-(α/2)", "z", "Li", "Ls"});
 		this.tittleData = new JLabel("Entradas:       ");
 		this.tittleInfo = new JLabel("Criterios de evaluación");
 		this.tittleResult = new JLabel("Resultados");
@@ -38,7 +37,7 @@ public class JPanelTestMedia extends JPanel{
 		this.gbc = new GridBagConstraints();
 		this.jPanelEntry = new JPanel(new GridBagLayout());
 		this.jPanelProcess = new JPanel(new GridBagLayout());
-		init(approved);
+		init((boolean) objects[2]);
 	}
 
 	private void init(boolean approved) {

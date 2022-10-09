@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio{
+public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio {
 	public static final int NUMBER_OF_COLUMNS = 2;
 	public static final int NUMBER_OF_INTERVALS = 8;
 
@@ -24,8 +24,9 @@ public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio{
 			16.919, 18.307, 19.675, 21.026, 22.362, 23.685, 24.996, 26.296, 27.587, 28.869, 30.144, 31.410, 32.671,
 			33.924, 35.172, 36.415, 37.652, 38.885, 40.113, 41.337, 42.557, 43.773, 44.985, 46.194, 47.400, 48.602,
 			49.802, 50.998, 52.192, 53.384, 54.572, 55.758, 56.942, 58.124, 59.304, 60.481, 61.656, 62.830, 64.001,
-			65.171, 66.339, 67.505	};
-	
+			65.171, 66.339, 67.505 };
+	private int count;
+
 	public PruebaChi2(File file) {
 		super(file);
 	}
@@ -34,30 +35,32 @@ public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio{
 	public boolean isApproved() {
 		return getError() < getMaximumPossibleError();
 	}
-	
-	public ArrayList<Double[]> generateIntervals(){
+
+	public ArrayList<Double[]> generateIntervals() {
 		ArrayList<Double[]> intervals = new ArrayList<>();
 		double inicio = getLi();
-		for (int i = 0; i < NUMBER_OF_INTERVALS-1; i++) {
-			Double[] aux = new Double[] {inicio, truncarNumber(inicio+((getLs()-getLi())/(double)NUMBER_OF_INTERVALS))};
+		for (int i = 0; i < NUMBER_OF_INTERVALS - 1; i++) {
+			Double[] aux = new Double[] { inicio,
+					truncarNumber(inicio + ((getLs() - getLi()) / (double) NUMBER_OF_INTERVALS)) };
 			intervals.add(aux);
 			inicio = aux[1];
 		}
-		intervals.add(new Double[] {inicio, getLs()});
+		intervals.add(new Double[] { inicio, getLs() });
 		return intervals;
 	}
-	
-	public LinkedHashMap<String, Integer> calculateFrequencies(){
+
+	public LinkedHashMap<String, Integer> calculateFrequencies() {
 		ArrayList<Double[]> intervals = generateIntervals();
 		LinkedHashMap<String, Integer> frecuencies = new LinkedHashMap<>();
 		for (Double[] interval : intervals) {
-			frecuencies.put(interval[0]+" - "+interval[1], 0);
+			frecuencies.put(interval[0] + "-" + interval[1], 0);
 		}
 		for (Double doubles : list) {
 			double number = truncarNumber(doubles);
 			for (Double[] interval : intervals) {
 				if (number >= interval[0] && number <= interval[1]) {
-					frecuencies.put(interval[0]+" - "+interval[1], frecuencies.get(interval[0]+" - "+interval[1])+1);
+					frecuencies.put(interval[0] + "-" + interval[1],
+							frecuencies.get(interval[0] + "-" + interval[1]) + 1);
 					break;
 				}
 			}
@@ -69,7 +72,7 @@ public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio{
 	public double getLi() {
 		double aux = getLs();
 		for (Double double1 : list) {
-			aux = aux >= double1?double1:aux;
+			aux = aux >= double1 ? double1 : aux;
 		}
 		return truncarNumber(aux);
 	}
@@ -78,20 +81,20 @@ public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio{
 	public double getLs() {
 		double aux = 0;
 		for (Double double1 : list) {
-			aux = aux <= double1?double1:aux;
+			aux = aux <= double1 ? double1 : aux;
 		}
 		return truncarNumber(aux);
 	}
-	
-	public ArrayList<Double> getColumnChi2(){
+
+	public ArrayList<Double> getColumnChi2() {
 		LinkedHashMap<String, Integer> frecuencies = calculateFrequencies();
 		ArrayList<Double> columnChi2 = new ArrayList<Double>();
-		frecuencies.forEach((k,v) -> {
-			columnChi2.add(truncarNumber(Math.pow(v-getFrecEsp(), 2)/getFrecEsp()));
+		frecuencies.forEach((k, v) -> {
+			columnChi2.add(truncarNumber(Math.pow(v - getFrecEsp(), 2) / getFrecEsp()));
 		});
 		return columnChi2;
 	}
-	
+
 	public double getError() {
 		ArrayList<Double> columnChi2 = getColumnChi2();
 		double sum = 0;
@@ -100,17 +103,37 @@ public class PruebaChi2 extends Prueba_Numero_Pseudoaleatorio{
 		}
 		return truncarNumber(sum);
 	}
-	
+
 	public double getMaximumPossibleError() {
-		return TABLE_005[getDegreesOfFreedom()-1];
+		return TABLE_005[getDegreesOfFreedom() - 1];
 	}
-	
+
 	public int getDegreesOfFreedom() {
-		return (NUMBER_OF_COLUMNS-1)*(NUMBER_OF_INTERVALS-1);
+		return (NUMBER_OF_COLUMNS - 1) * (NUMBER_OF_INTERVALS - 1);
 	}
-	
+
 	public double getFrecEsp() {
-		return truncarNumber((double)list.size()/NUMBER_OF_INTERVALS);
+		return truncarNumber((double) list.size() / NUMBER_OF_INTERVALS);
 	}
-	
+
+	public ArrayList<Object[]> getTable() {
+		ArrayList<Object[]> aux = new ArrayList<Object[]>();
+		LinkedHashMap<String, Integer> frecuencies = calculateFrequencies();
+		count = 0;
+		frecuencies.forEach((k, v) -> {
+			String[] strings = k.split("-");
+			double frecEsp = (double) getSize() / NUMBER_OF_INTERVALS;
+			aux.add(new Object[] { count++, strings[0], strings[1], v, frecEsp,
+					truncarNumber(Math.pow(v - frecEsp, 2) / frecEsp) });
+		});
+		return aux;
+	}
+
+	public ArrayList<Object[]> getTableLiberty() {
+		ArrayList<Object[]> aux = new ArrayList<Object[]>();
+		aux.add(new Object[] { getError(), (NUMBER_OF_COLUMNS - 1) * (NUMBER_OF_INTERVALS - 1),
+				getMaximumPossibleError() });
+		return aux;
+	}
+
 }

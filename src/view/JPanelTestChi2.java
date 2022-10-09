@@ -39,10 +39,11 @@ public class JPanelTestChi2 extends JPanel {
 	private JButton jButtonViewTableChi2;
 	private GridBagConstraints gbc;
 
+	@SuppressWarnings("unchecked")
 	public JPanelTestChi2(Object... objects) {
 		super(new GridBagLayout());
 		ArrayList<Object[]> entries = (ArrayList<Object[]>)(objects[0]);
-		String[] entriesNames = new String[] { "i", "xi" };
+		String[] entriesNames = new String[] { "i", "Ri" };
 
 		ArrayList<Object[]> criteries = (ArrayList<Object[]>)(objects[1]);
 		String[] criteriesNames = new String[] { "i", "inicial", "final", "Frec. Obt", "Frec. Esp", "Chi2"};

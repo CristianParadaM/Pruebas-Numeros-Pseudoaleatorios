@@ -283,13 +283,17 @@ public class JPanelMain extends JPanel {
 		jButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				jButton.setBorder(new LineBorder(Color.YELLOW));
+				if (jButton.getMnemonic() == 0) {
+					jButton.setBorder(new LineBorder(Color.YELLOW));
+				}
 				jButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				jButton.setBorder(new LineBorder(Color.WHITE));
+				if (jButton.getMnemonic() == 0) {
+					jButton.setBorder(new LineBorder(Color.WHITE));
+				}
 				jButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 
@@ -315,28 +319,22 @@ public class JPanelMain extends JPanel {
 		g2d.setColor(Color.WHITE);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void showPanel(int index, Object... object) {
 		switch (index) {
 		case 0:
-			activePanels.get(index)[0] = new JPanelTestMedia((ArrayList<Object[]>) object[0],
-					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			activePanels.get(index)[0] = new JPanelTestMedia(object);
 			break;
 		case 1:
-			activePanels.get(index)[0] = new JPanelTestVarianza((ArrayList<Object[]>) object[0],
-					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			activePanels.get(index)[0] = new JPanelTestVarianza(object);
 			break;
 		case 2:
-			activePanels.get(index)[0] = new JPanelTestKS((ArrayList<Object[]>) object[0],
-					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			activePanels.get(index)[0] = new JPanelTestKS(object);
 			break;
 		case 3:
-			activePanels.get(index)[0] = new JPanelTestChi2((ArrayList<Object[]>) object[0],
-					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			activePanels.get(index)[0] = new JPanelTestChi2(object);
 			break;
 		case 4:
-			activePanels.get(index)[0] = new JPanelTestPoker((ArrayList<Object[]>) object[0],
-					(ArrayList<Object[]>) object[1], (boolean) object[2]);
+			activePanels.get(index)[0] = new JPanelTestPoker(object);
 			break;
 		}
 		activePanels.get(index)[1] = !((boolean) activePanels.get(index)[1]);
@@ -359,5 +357,31 @@ public class JPanelMain extends JPanel {
 
 	public void showPath(String path) {
 		this.jLabelPath.setText(path);
+	}
+
+	public void setAprovalTest(int index, boolean infoMedias, Object[] objects) {
+		((JButton) activeButtons.get(index)[0]).setMnemonic(infoMedias ? 1 : -1);
+		((JButton) activeButtons.get(index)[0]).setBorder(new LineBorder(infoMedias ? Color.GREEN : Color.RED));
+	}
+
+	public void showResult(boolean aproval) {
+		jLabelResult.setText(aproval ? "Todas las pruebas superadas :)" : "Fallo en alguna prueba :(");
+		jLabelResult.setForeground(aproval ? new Color(0, 176, 80) : new Color(255, 124, 128));
+		jLabelResult.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
+				aproval ? new Color(0, 176, 80) : new Color(255, 124, 128)));
+	}
+
+	public void reset() {
+		for (Object[] objects : activeButtons) {
+			((JButton) objects[0]).setBorder(new LineBorder(Color.WHITE));
+			((JButton) objects[0]).setMnemonic(0);
+		}
+		for (Object[] objects : activePanels) {
+			objects[1] = false;
+		}
+		reOrganize();
+		jLabelResult.setForeground(Color.WHITE);
+		jLabelResult.setText("Aun no has realizado alguna prueba");
+		jLabelResult.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
 	}
 }

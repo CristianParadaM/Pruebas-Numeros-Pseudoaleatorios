@@ -2,13 +2,9 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import view.utils.Constants;
 
 public class JFrameMain extends JFrame {
 
@@ -51,6 +47,19 @@ public class JFrameMain extends JFrame {
 
 	public void alert(String message, String title, int type) {
 		JOptionPane.showMessageDialog(this, message, title, type);
+	}
+
+	public void setAprovalTest(int index, boolean infoMedias, Object[] objects) {
+		jPanelMain.setAprovalTest(index, infoMedias, objects);
+		jPanelMain.showResult((boolean) objects[objects.length - 1]);
+	}
+
+	public void showResult(boolean aproval) {
+		jPanelMain.showResult(aproval);
+	}
+
+	public void reset() {
+		jPanelMain.reset();
 	}
 
 }

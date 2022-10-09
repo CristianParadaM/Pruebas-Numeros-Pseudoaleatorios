@@ -14,13 +14,17 @@ public abstract class Prueba_Numero_Pseudoaleatorio {
 		list = readNumbers();
 	}
 	
+	public ArrayList<Double> getList() {
+		return list;
+	}
+	
 	private ArrayList<Double> readNumbers(){
 		ArrayList<Double> list = new ArrayList<Double>();
 		try {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNext()) {
 				String number = scanner.nextLine().replace(",", ".");
-				list.add(Double.parseDouble((number)));
+				list.add(truncarNumber(Double.parseDouble((number))));
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {

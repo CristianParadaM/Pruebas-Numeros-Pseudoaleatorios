@@ -25,10 +25,11 @@ public class JPanelTestVarianza extends JPanel {
 	private JPanel jPanelProcess;
 	private GridBagConstraints gbc;
 	
-	public JPanelTestVarianza(ArrayList<Object[]> tableData, ArrayList<Object[]> tableInfo, boolean approved) {
+	@SuppressWarnings("unchecked")
+	public JPanelTestVarianza(Object...objects) {
 		super(new GridBagLayout());
-		this.tableData = new JTableMethod(tableData, new String[] {"i","Ri"});
-		this.tableInfo = new JTableMethod(tableInfo, new String[] {"Aceptacion","α", "n", "Media", "σ^2", "α/2", "1-(α/2)", "(X^2)_α/2", "(X^2)_1-(α/2)", "Li", "Ls"});
+		this.tableData = new JTableMethod((ArrayList<Object[]>) objects[0], new String[] {"i","Ri"});
+		this.tableInfo = new JTableMethod((ArrayList<Object[]>) objects[1], new String[] {"Aceptacion","α", "n", "Media", "σ^2", "α/2", "1-(α/2)", "(X^2)_α/2", "(X^2)_1-(α/2)", "Li", "Ls"});
 		this.tittleData = new JLabel("Entradas:    ");
 		this.tittleInfo = new JLabel("Criterios de evaluación");
 		this.tittleResult = new JLabel("Resultados");
@@ -36,7 +37,7 @@ public class JPanelTestVarianza extends JPanel {
 		this.gbc = new GridBagConstraints();
 		this.jPanelEntry = new JPanel(new GridBagLayout());
 		this.jPanelProcess = new JPanel(new GridBagLayout());
-		init(approved);
+		init((boolean)objects[2]);
 	}
 
 

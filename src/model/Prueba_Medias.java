@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 
 public class Prueba_Medias extends Prueba_Numero_Pseudoaleatorio{
+	
 	public static final double Z = 1.96;
 
 	public Prueba_Medias(File file) {

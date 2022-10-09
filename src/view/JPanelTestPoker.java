@@ -39,14 +39,15 @@ public class JPanelTestPoker extends JPanel {
 	private JButton jButtonViewTableChi2;
 	private GridBagConstraints gbc;
 
+	@SuppressWarnings("unchecked")
 	public JPanelTestPoker(Object... objects) {
 		super(new GridBagLayout());
 		ArrayList<Object[]> entries = (ArrayList<Object[]>) (objects[0]);
-		String[] entriesNames = new String[] { "i", "xi" };
+		String[] entriesNames = new String[] { "i", "Ri" };
 
 		ArrayList<Object[]> criteries = (ArrayList<Object[]>) (objects[1]);
 
-		String[] criteriesNames = new String[] { "Categoria", "Oi", "Probab", "Ei", "(Ei-Oi)^2/Ei" };
+		String[] criteriesNames = new String[] { "Categoria", "Freq Obt", "Probab", "Freq Esp", "(Fe-Fo)^2/Fe" };
 
 		ArrayList<Object[]> result = (ArrayList<Object[]>)(objects[2]);
 
@@ -88,7 +89,7 @@ public class JPanelTestPoker extends JPanel {
 		configureLabels(jLabelCriteries, Constants.FONT_SIZE_APP_TITLES, Font.BOLD);
 		configureLabels(jLabelResult, Constants.FONT_SIZE_APP_TITLES, Font.BOLD);
 		configureLabels(jLabelResultText, Constants.FONT_SIZE_APP_LABELS, Font.ITALIC);
-		configureButtons(jButtonViewTableChi2, ""); // TODO
+		configureButtons(jButtonViewTableChi2, ""); 
 		addItems();
 	}
 
