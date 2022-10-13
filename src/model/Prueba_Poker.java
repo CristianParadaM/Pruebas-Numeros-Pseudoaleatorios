@@ -10,6 +10,10 @@ public class Prueba_Poker extends Prueba_Numero_Pseudoaleatorio {
 		super(file);
 		odds = new double[] { 0.3024, 0.5040, 0.1080, 0.0720, 0.0090, 0.0045, 0.0001 };
 	}
+	
+	public Prueba_Poker(ArrayList<Double> numbers) {
+		super(numbers);
+	}
 
 	@Override
 	public boolean isApproved() {
@@ -17,7 +21,7 @@ public class Prueba_Poker extends Prueba_Numero_Pseudoaleatorio {
 	}
 
 	private double getMaxError() {
-		return PruebaChi2.TABLE_005[6];
+		return table_005.get(6);
 	}
 
 	public double calculateError() {

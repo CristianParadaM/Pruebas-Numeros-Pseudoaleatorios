@@ -27,6 +27,10 @@ public class PruebaKS extends Prueba_Numero_Pseudoaleatorio {
 		i = 0;
 		initDMaxP();
 	}
+	
+	public PruebaKS(ArrayList<Double> numbers) {
+		super(numbers);
+	}
 
 	private void initDMaxP() {
 		dMax = Ks_Test();

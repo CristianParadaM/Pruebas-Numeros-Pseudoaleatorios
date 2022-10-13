@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Prueba_Medias extends Prueba_Numero_Pseudoaleatorio{
 	
@@ -8,6 +9,10 @@ public class Prueba_Medias extends Prueba_Numero_Pseudoaleatorio{
 
 	public Prueba_Medias(File file) {
 		super(file);
+	}
+	
+	public Prueba_Medias(ArrayList<Double> numbers) {
+		super(numbers);
 	}
 	
 	public boolean isApproved() {

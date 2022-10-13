@@ -1,12 +1,17 @@
 package model;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Prueba_Varianza extends Prueba_Numero_Pseudoaleatorio{
 	
 
 	public Prueba_Varianza(File file) {
 		super(file);
+	}
+	
+	public Prueba_Varianza(ArrayList<Double> numbers) {
+		super(numbers);
 	}
 	
 	public boolean isApproved() {
@@ -24,11 +29,11 @@ public class Prueba_Varianza extends Prueba_Numero_Pseudoaleatorio{
 	}
 	
 	public double getChiCuadrado025() {
-		return PruebaChi2.TABLE_025[list.size()-1];
+		return table_0025.get(list.size()-1);
 	}
 	
 	public double getChiCuadrado0975() {
-		return PruebaChi2.TABLE_0975[list.size()-1];
+		return table_0975.get(list.size()-1);
 	}
 
 	public double getLi() {
